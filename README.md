@@ -2,6 +2,10 @@
 
 A lightweight, production-ready Docker container for running ComfyUI on Runpod or other GPU hosts.
 
+Should show something like this:
+<img width="2560" alt="Screenshot 2025-04-28 at 10 21 36 AM" src="https://github.com/user-attachments/assets/edbeb96b-09ed-41a7-8376-bda3e1b0d44e" />
+
+
 ## Features
 
 - Based on NVIDIA CUDA 12.1 with Ubuntu 22.04
