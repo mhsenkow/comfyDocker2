@@ -1,0 +1,36 @@
+FROM python:3.10-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    wget \
+    ffmpeg \
+    libgl1 \
+    libglib2.0-0 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create working directory
+WORKDIR /app
+
+# Clone ComfyUI repository
+RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app
+
+# Install PyTorch and other Python dependencies (CPU version)
+RUN pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+# Install ComfyUI requirements
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
+
+# Add a patch to skip GPU checks for testing
+RUN sed -i 's/if device_name == "cpu" and not args.cpu/if device_name == "cpu" and False/g' /app/comfy/model_management.py
+
+# Expose ComfyUI port
+EXPOSE 8188
+
+# Set command to start ComfyUI on container launch (CPU mode)
+CMD ["python3", "main.py", "--listen", "0.0.0.0", "--port", "8188", "--cpu"] 

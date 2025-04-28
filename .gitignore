@@ -1,0 +1,25 @@
+# MacOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Docker volumes
+models/
+output/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+*.log 

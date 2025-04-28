@@ -1,0 +1,64 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 672073424983013,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": ["4", "model"],
+      "positive": ["6", "positive"],
+      "negative": ["7", "negative"],
+      "latent_image": ["5", "latent_image"]
+    },
+    "class_type": "KSampler",
+    "_id": "3"
+  },
+  "4": {
+    "inputs": {
+      "ckpt_name": "v1-5-pruned-emaonly.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_id": "4"
+  },
+  "5": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_id": "5"
+  },
+  "6": {
+    "inputs": {
+      "text": "a photograph of a beautiful landscape with mountains and a lake"
+    },
+    "class_type": "CLIPTextEncode",
+    "_id": "6"
+  },
+  "7": {
+    "inputs": {
+      "text": "blurry, low quality, ugly, distorted"
+    },
+    "class_type": "CLIPTextEncode",
+    "_id": "7"
+  },
+  "8": {
+    "inputs": {
+      "samples": ["3", "samples"],
+      "vae": ["4", "vae"]
+    },
+    "class_type": "VAEDecode",
+    "_id": "8"
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "output/generated_image",
+      "images": ["8", "images"]
+    },
+    "class_type": "SaveImage",
+    "_id": "9"
+  }
+} 
